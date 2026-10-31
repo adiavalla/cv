@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV – Adianiz Valla</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #e6e8ec;
+    font-family: Calibri, Carlito, "Segoe UI", Arial, sans-serif;
+    color: #000;
+  }
+
+  /* ---- Barre de bascule FR / EN ---- */
+  .topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: #1f3a68; color: #fff;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 20px; gap: 16px; flex-wrap: wrap;
+  }
+  .topbar .t { font-size: 14px; font-weight: 600; letter-spacing: .3px; }
+  .switch { display: inline-flex; border: 1px solid #9db4d9; border-radius: 6px; overflow: hidden; }
+  .switch button {
+    background: transparent; color: #cfdcf0; border: 0;
+    padding: 7px 18px; font: 600 13px/1 inherit, Calibri, Arial, sans-serif;
+    cursor: pointer; font-family: inherit;
+  }
+  .switch button.on { background: #fff; color: #1f3a68; }
+
+  /* ---- Pages A4 ---- */
+  .page {
+    position: relative;
+    width: 210mm; min-height: 297mm;
+    margin: 18px auto;
+    background: #fff;
+    padding: 12mm 14mm 12mm 22mm;
+    box-shadow: 0 2px 12px rgba(0,0,0,.18);
+    overflow: hidden;
+  }
+  .page::before {
+    content: ""; position: absolute;
+    left: 5mm; top: 5mm; bottom: 5mm; width: 2.6mm;
+    background: linear-gradient(to bottom, #1f3a68, #6f9bd6 60%, #cfdcf0);
+    border-radius: 2mm;
+  }
+
+  /* ---- En-tête (1re page) ---- */
+  .hdr {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 6px; border-bottom: 1px solid #e0457b;
+    margin-bottom: 18px;
+  }
+  .hdr .nm { color: #1f3a68; font-weight: 700; font-size: 12pt; }
+  .hdr .hl div, .hdr .hr div { line-height: 1.55; }
+  .hdr .hl div { color: #1f3a68; font-weight: 700; font-size: 11.5pt; }
+  .hdr .hl .ph, .hdr .hr .ph { color: #6b6b6b; }
+  .hdr .hr { text-align: right; }
+  .hdr .hr div { color: #333; font-weight: 700; font-size: 11.5pt; }
+
+  /* ---- Titres et textes ---- */
+  h2.sec {
+    color: #9e9e9e; font-size: 13pt; font-weight: 700;
+    margin: 16px 0 8px; padding-bottom: 3px;
+  }
+  h2.sec.line { border-bottom: 1px solid #e0457b; }
+  .role-h { color: #2e75b6; font-weight: 700; font-size: 9.5pt; margin-bottom: 10px; }
+  .bp { font-weight: 700; font-size: 9.5pt; line-height: 1.38; margin: 0 0 10px; }
+  .kh { color: #2e75b6; font-size: 9.5pt; font-weight: 700; margin: 12px 0 3px; text-transform: uppercase; }
+  .kh.mixed { text-transform: none; }
+  .up { font-weight: 700; font-size: 9.5pt; text-transform: uppercase; line-height: 1.38; margin: 0 0 4px; }
+  .tx { font-weight: 700; font-size: 9.5pt; line-height: 1.38; margin: 0 0 4px; }
+  hr.red { border: 0; border-top: 2px solid #c00000; margin: 18px 0 14px; }
+  hr.pink { border: 0; border-top: 1px solid #e0457b; margin: 16px 0 12px; }
+  hr.grey { border: 0; border-top: 1px solid #9e9e9e; margin: 4px 0 10px; }
+  .edu { color: #2e75b6; font-weight: 700; font-size: 9.5pt; margin: 14px 0; }
+
+  /* ---- Expériences ---- */
+  .exph { color: #9e9e9e; font-size: 13pt; font-weight: 700; margin: 0 0 10px; text-transform: uppercase; }
+  .exp { margin-bottom: 26px; }
+  .co {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid #e0457b; padding-bottom: 2px;
+    color: #2e75b6; font-weight: 700; font-size: 11pt; text-transform: uppercase;
+  }
+  .co .loc { color: #808080; font-size: 9pt; }
+  .dt { color: #7f7f7f; font-weight: 700; font-size: 9pt; margin-top: 4px; }
+  .role { color: #7f7f7f; font-weight: 700; font-size: 9.5pt; margin: 6px 0 8px; }
+  .proj { color: #2e75b6; font-weight: 700; font-size: 9.5pt; margin-bottom: 10px; line-height: 1.35; }
+  .rh { color: #2e75b6; font-weight: 700; font-size: 9.5pt; margin: 8px 0 4px; }
+  .exp ul { margin: 0; padding-left: 8mm; font-size: 9.5pt; line-height: 1.42; }
+  .exp ul ul { padding-left: 6mm; list-style: circle; }
+  .exp ul.env { list-style: disc; color: #595959; font-weight: 700; text-transform: uppercase; font-size: 8.5pt; line-height: 1.6; }
+  .exp ul.env li::marker { color: #7f7f7f; }
+
+  /* ---- Bascule de langue ---- */
+  body[data-lang="fr"] .page[data-lang="en"] { display: none; }
+  body[data-lang="en"] .page[data-lang="fr"] { display: none; }
+
+  @media print {
+    body { background: #fff; }
+    .topbar { display: none; }
+    .page { margin: 0; box-shadow: none; page-break-after: always; }
+  }
+  @media (max-width: 800px) {
+    .page { width: 100%; min-height: auto; padding: 14px 14px 14px 22px; }
+    .hdr { flex-direction: column; gap: 10px; }
+    .hdr .hr { text-align: left; }
+  }
+</style>
+</head>
+<body data-lang="fr">
+
+<div class="topbar">
+  <span class="t">CV – Adianiz Valla</span>
+  <div class="switch" role="group" aria-label="Langue / Language">
+    <button type="button" data-l="fr" class="on" onclick="setLang('fr')">Français</button>
+    <button type="button" data-l="en" onclick="setLang('en')">English</button>
+  </div>
+</div>
+
+<!-- ======================= FRANÇAIS ======================= -->
+
+<section class="page" data-lang="fr">
+  <header class="hdr">
+    <div class="hl">
+      <div class="nm">Adianiz Valla</div>
+      <div>Lausanne</div>
+      <div class="ph">07.75.25.38.93</div>
+    </div>
+    <div class="hr">
+      <div>DevOps / SysAdmin</div>
+      <div>Ingénieur Infrastructure</div>
+      <div class="ph">14 ans d’expérience</div>
+    </div>
+  </header>
+
+  <h2 class="sec">Profil professionnel</h2>
+  <div class="role-h">Ingénieur Infrastructures et Systèmes Senior / Devops</div>
+  <p class="bp">Plus de 14 ans d’expérience sur des environnements critiques (R&amp;D, semi-conducteurs, aéronautique, production logicielle, industrie, banque)</p>
+  <p class="bp">Expert en automatisation et maintien en condition opérationnelle (mco), avec une forte orientation virtualisation, supervision et fiabilisation des infrastructures.</p>
+  <p class="bp">Intervenant sur des environnements complexes hébergeant outils cao / eda / simulation sous Haute disponibilité, plateformes data, avec une expertise en automatisation des infrastructures, gestion d’environnements virtualises et cloud, orchestration de conteneurs et industrialisation des déploiements.</p>
+  <p class="bp">Habitué aux environnements a haute disponibilité et aux contextes internationaux, avec des exigences élevées en matière de performance, sécurité et protection de la propriété intellectuelle.</p>
+
+  <hr class="red">
+
+  <h2 class="sec">COMPÉTENCES CLÉS</h2>
+  <div class="kh">• SYSTÈMES, INFRASTRUCTURES &amp; MCO</div>
+  <p class="up">ADMINISTRATION DE PARCS SERVEURS WINDOWS / LINUX EN HAUTE DISPONIBILITE – VIRTUALISATION VMWARE ET HYPER-V (VCENTER, ESXI, HORIZON) – STOCKAGE ET SAUVEGARDE (SAN/NAS, DFS-R, PRA/DRP) – RESEAUX (TCP/IP, VLAN, SWITCHS CISCO) – SUPERVISION, ALERTING ET GESTION DES INCIDENTS N3/4</p>
+  <div class="kh">• DEVOPS &amp; AUTOMATISATION</div>
+  <p class="up">CI/CD (JENKINS, GITLAB, GIT) – AUTOMATISATION (ANSIBLE, POWERSHELL, PYTHON) – CONTENEURISATION ET ORCHESTRATION (DOCKER, KUBERNETES) – INDUSTRIALISATION DES PLANS DE MEP ET DES DEPLOIEMENTS APPLICATIFS</p>
+  <div class="kh">• ENVIRONNEMENTS R&amp;D, DATA &amp; APPLICATIFS</div>
+  <p class="up">ENVIRONNEMENTS CAD / EDA (CADENCE VIRTUOSO, DESIGNSYNC, AUTODESK INVENTOR/VAULT/ADMS) – PLATEFORMES DATA (ALTERYX, SEMARCHY, TALEND) – SERVEURS APPLICATIFS (IIS, XL DEPLOY / XL RELEASE) – INTEGRATION DES FLUX (ODBC, BASES DE DONNEES)</p>
+
+  <hr class="pink">
+
+  <h2 class="sec">DOMAINES D’INTERVENTION</h2>
+  <div class="kh">• SYSTÈMES, INFRASTRUCTURES &amp; MCO</div>
+  <p class="up">EXPLOITATION D’INFRASTRUCTURES CRITIQUES – MAINTIEN EN CONDITION OPERATIONNELLE (MCO) – SUPERVISION ET GESTION DES INCIDENTS – AMELIORATION DE LA DISPONIBILITE ET DES PERFORMANCES</p>
+  <div class="kh">ENVIRONNEMENTS R&amp;D, DATA &amp; APPLICATIFS</div>
+  <p class="up">SUPPORT D’ENVIRONNEMENTS CAD / EDA – DEPLOIEMENT DE PLATEFORMES DATA – CONFIGURATION DES FLUX (ODBC, BASES DE DONNEES) – SUPPORT AUX EQUIPES TECHNIQUES ET PROJETS</p>
+  <div class="kh">• DEVOPS &amp; AUTOMATISATION</div>
+  <p class="up">MISE EN PLACE DE PIPELINES CI/CD – AUTOMATISATION DES DEPLOIEMENTS ET CONFIGURATIONS – INDUSTRIALISATION DES PROCESSUS D’EXPLOITATION – USINE LOGICIELLE</p>
+</section>
+
+<section class="page" data-lang="fr">
+  <h2 class="sec line">COMPÉTENCES TECHNIQUES</h2>
+  <div class="kh mixed">• SYSTÈMES, VIRTUALISATION &amp; INFRASTRUCTURES</div>
+  <p class="bp">Administration Windows Server et Linux (RHEL,Debian) – Virtualisation VMware (vSphere, vCenter, ESXi, Horizon) – Services d’infrastructure (Active Directory, DNS, DHCP, DFS-R) – Exploitation d’infrastructures critiques à haute disponibilité</p>
+  <div class="kh mixed">• RÉSEAUX, STOCKAGE &amp; SAUVEGARDE</div>
+  <p class="bp">Réseaux (TCP/IP, VLAN, routage) – Environnements LAN/WAN et téléphonie (PABX, VoIP) – Stockage SAN/NAS et DFS-R, migration vers des architectures centralisées – Sauvegarde et archivage (NetVault, Connected Backup, Veeam) – PRA/DRP – Administration SGBD (SQL Server, MySQL, PostgreSQL, MongoDB)</p>
+  <div class="kh mixed">• DEVOPS, AUTOMATISATION &amp; CLOUD</div>
+  <p class="bp">Automatisation et gestion de configuration (Ansible, Terraform, PowerShell, Python) – CI/CD (Jenkins, GitLab, Git / Gerrit, Bitbucket, Nexus, Archiva, SonarQube) – Conteneurisation et orchestration (Docker, Kubernetes, Swarm) – Cloud (GCP) – Industrialisation des déploiements et des plans de MEP</p>
+  <div class="kh mixed">• SUPERVISION, MCO &amp; EXPLOITATION</div>
+  <p class="bp">Supervision et observabilité (Zabbix, Centreon, Nagios, ELK, Splunk, vROps) – Alerting et reporting automatisés – MCO d’environnements de production – Gestion des incidents et support N2/N3 – Outils ITSM (ServiceNow, Remedy)</p>
+  <div class="kh mixed">• DATA &amp; ENVIRONNEMENTS APPLICATIFS</div>
+  <p class="bp">Déploiement et exploitation de plateformes data (Alteryx, Semarchy, Talend, Denodo) – Serveurs applicatifs (IIS) – Configuration des connexions (ODBC, bases de données) – Intégration et gestion des flux de données</p>
+  <div class="kh mixed">• ENVIRONNEMENTS CAD / R&amp;D</div>
+  <p class="bp">Administration et support d’outils CAD / EDA et PLM (Cadence Virtuoso, DesignSync, Autodesk Inventor / Vault / ADMS, Cameo, 3DEXPERIENCE / ENOVIA) – Serveurs Vault – Accès distants sécurisés (OpenText Exceed) – Environnements sensibles : performance, sécurité, propriété intellectuelle</p>
+  <div class="kh mixed">• COLLABORATION, MESSAGERIE &amp; OUTILS ITSM</div>
+  <p class="bp">Office 365, SharePoint, OneDrive, G Suite, Exchange, SMTP, Postfix – Outils ITSM (ServiceNow, Remedy) – Gestion de parc et déploiement (SCCM, WSUS, MDT, MBAM) – Sécurité des accès (CyberArk, BitLocker, YubiKey)</p>
+  <div class="kh mixed">• SCRIPTING &amp; AUTOMATISATION</div>
+  <p class="bp">PowerShell, Bash / Shell, Python, Batch, Ansible – Développement de scripts d’exploitation, d’archivage et d’automatisation</p>
+
+  <h2 class="sec">PARCOURS D’ETUDES ET FORMATIONS</h2>
+  <hr class="grey">
+  <div class="edu">Administration Linux avancée – 2023 (formation)</div>
+  <div class="edu">Lead IT Centreon – 2020 (formation)</div>
+  <div class="edu">MCITP / MCSA / MCTS Windows Server – 2012 (certifications)</div>
+  <div class="edu">Administrateur Systèmes &amp; Réseaux – 2012</div>
+  <div class="edu">Technicien Supérieur Informatique &amp; Réseaux – 2010</div>
+</section>
+
+<section class="page" data-lang="fr">
+  <h2 class="exph">Expériences</h2>
+  <div class="exp">
+    <div class="co"><span>API pour Audemars Piguet</span><span class="loc">LE BRASSUS</span></div>
+    <div class="dt">Juin 2026 – Aujourd’hui</div>
+    <div class="role">Ingénieur Systèmes</div>
+    <div class="proj">Projet : soutenir la R&amp;D dans ses choix d’infrastructure informatique et faire évoluer l’architecture CAO sur la durée</div>
+    <div class="rh">Réalisations</div>
+    <ul>
+      <li>Élaborer un benefit case structuré pour migrer les postes CAO vers une virtualisation VMware
+        <ul><li>Cadrer les besoins techniques en amont de la commande</li><li>Analyser les causes racines du besoin de changement et quantifier les bénéfices</li></ul></li>
+      <li>Refondre l’infrastructure CAO (Autodesk Inventor, Vault, ADMS) et sa base de données
+        <ul><li>Optimiser les performances chaîne Inventor → Vault → ADMS</li></ul></li>
+      <li>Déployer des solutions de simulation déportée et automatisée</li>
+      <li>Développer une interface d’archivage et de restauration basée sur robocopy et pilotée par PowerShell, pour les besoins métier
+        <ul><li>Script exécutable sans droits administrateur, avec options d’archivage et de restauration</li><li>Solution sécurisée, intuitive et performante dès son lancement</li></ul></li>
+      <li>Migrer les serveurs de stockage d’une ancienne configuration vers une architecture optimisée, virtualisée et centralisée</li>
+      <li>Revoir l’architecture de sauvegarde MongoDB dans le cadre d’un DRP pour une application critique
+        <ul><li>Automatiser les sauvegardes mongodump dans des conteneurs Kubernetes</li></ul></li>
+    </ul>
+    <div class="rh">Environnement technique</div>
+    <ul class="env"><li>Serveurs Windows et Linux</li><li>SQL Server, MongoDB</li><li>Autodesk Inventor, Vault, ADMS</li><li>ANSYS ARC / RSM</li><li>PowerShell</li><li>VMware (vCenter, Horizon)</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="fr">
+  <h2 class="exph">Expériences</h2>
+  <div class="exp">
+    <div class="co"><span>Freelance pour BPCE</span><span class="loc">TOULOUSE</span></div>
+    <div class="dt">Juin 2025 – Juin 2026</div>
+    <div class="role">Ingénieur de Production &amp; Data</div>
+    <div class="proj">Projet : environnement bancaire critique – administration et exploitation de plateformes applicatives, data et de production</div>
+    <div class="rh">Réalisations</div>
+    <ul>
+      <li>Administration et exploitation d’environnements de production (serveurs Windows / Linux, applications web IIS)
+        <ul><li>Plans de MEP, coordination inter-équipes et déploiements</li></ul></li>
+      <li>Support technique et maintien en condition opérationnelle (MCO) des plateformes applicatives et data</li>
+      <li>Gestion et automatisation des déploiements applicatifs avec XL Deploy / XL Release
+        <ul><li>Création de templates et de releases de déploiement sous XL Release</li><li>Administration des dictionnaires et des environnements sous XL Deploy, avec gestion de versions</li></ul></li>
+      <li>Accompagnement des développeurs sur leur configuration et leurs déploiements</li>
+      <li>Gestion des bases de données et des sauvegardes
+        <ul><li>SQL, MySQL</li></ul></li>
+      <li>Migration de serveurs et de production applicative</li>
+      <li>Administration et support des outils data (Alteryx, Semarchy)</li>
+      <li>Préparation et pilotage des migrations applicatives et d’outils</li>
+      <li>Amélioration continue de l’exploitation et fiabilisation des environnements</li>
+      <li>Mise en place et suivi du monitoring avec Zabbix</li>
+      <li>Scripting et automatisation des tâches d’exploitation</li>
+      <li>Gestion sécurisée des comptes de service avec CyberArk
+        <ul><li>Automatisation des politiques de sécurité et de gestion des comptes via CPM</li><li>Auto-provisioning via templates et gestion du cycle de vie des templates</li><li>Lifecycle management et gestion des vaults</li></ul></li>
+    </ul>
+    <div class="rh">Environnement technique</div>
+    <ul class="env"><li>Serveurs Windows et Linux</li><li>IIS, XL Release, XL Deploy</li><li>Zabbix</li><li>Alteryx, Semarchy, GCP</li><li>SQL, Denodo, PostgreSQL, MySQL</li><li>VTOM, Control-M</li><li>CyberArk</li><li>Scripting : Batch, Python, PowerShell</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="fr">
+  <h2 class="exph">Expériences</h2>
+  <div class="exp">
+    <div class="co"><span>NXP Semiconductors</span><span class="loc">LIEU (TOULOUSE)</span></div>
+    <div class="dt">Août 2024 – Mai 2025</div>
+    <div class="role">Ingénieur Support CAD</div>
+    <div class="proj">Projet : environnement R&amp;D semi-conducteurs – support aux équipes de conception dans un contexte international, avec de fortes exigences de performance, de sécurité et de protection de la propriété intellectuelle</div>
+    <div class="rh">Réalisations</div>
+    <ul>
+      <li>Support technique et administration d’environnements CAD / EDA pour les équipes de conception hardware et software</li>
+      <li>Configuration, administration et optimisation des outils de conception (DesignSync, Cadence Virtuoso, Cameo, CollabNet)</li>
+      <li>Migration et sécurisation des actifs critiques (propriété intellectuelle hardware et software)
+        <ul><li>Création de serveurs Vault avec DesignSync</li><li>Configuration d’espaces OpenText Exceed sécurisés</li></ul></li>
+      <li>Mise en place des plans de mise en production, de tests et de déploiement applicatif</li>
+      <li>Automatisation des migrations de données et des processus par scripting (Ansible, Python, Batch)</li>
+      <li>Exploitation d’environnements virtualisés et d’accès distants (OpenText Exceed)</li>
+      <li>Amélioration continue de l’exploitabilité et industrialisation des environnements (approche DevOps)</li>
+      <li>Mise en place de solutions de monitoring et d’analyse (Splunk)</li>
+      <li>Administration des serveurs techniques locaux et support des infrastructures associées</li>
+      <li>Structuration et remise sous contrôle de projets techniques (organisation, fiabilisation, pratiques DevOps)</li>
+      <li>Coordination technique avec des équipes internationales</li>
+    </ul>
+    <div class="rh">Environnement technique</div>
+    <ul class="env"><li>Linux, Windows</li><li>OpenText Exceed (virtualisation)</li><li>Cadence Virtuoso, DesignSync, Cameo</li><li>Splunk</li><li>Git / Gerrit, Bitbucket, CollabNet</li><li>Scripting : Batch, Python, PowerShell</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="fr">
+  <h2 class="exph">Expériences</h2>
+  <div class="exp">
+    <div class="co"><span>Softeam pour INRAE</span><span class="loc">LIEU (TÉLÉTRAVAIL)</span></div>
+    <div class="dt">Janvier 2019 – Juillet 2024</div>
+    <div class="role">Ingénieur DevOps</div>
+    <div class="proj">Projet : accompagnement DevOps des équipes de développement Java, Angular, JavaScript et Python, en intégration au sein d’une équipe externe en tant que consultant</div>
+    <div class="rh">Réalisations</div>
+    <ul>
+      <li>Maintien en condition opérationnelle (MCO) des produits client et amélioration continue de leur exploitation
+        <ul><li>Automatisation de la MCO, du reporting et de l’alerting</li><li>Déploiement de sondes Centreon personnalisées via API</li></ul></li>
+      <li>Exécution des plans de MEP, rédaction de la documentation fonctionnelle et technique
+        <ul><li>Automatisation des plans de MEP avec Jenkins et GitLab</li></ul></li>
+      <li>Administration de serveurs Linux et déploiement d’applications
+        <ul><li>Mise en place d’un serveur Ansible pour déployer les outils, avec gestion de versions
+          <ul><li>Mise en place d’un Ansible Galaxy pour généraliser les déploiements</li></ul></li></ul></li>
+      <li>Support aux développeurs sur Jenkins, Archiva, Sonar, TestLink et Elastic
+        <ul><li>Pipelines Jenkins par équipe</li><li>Intégration Git – Jenkins, mise en place de webhooks et de CI/CD</li>
+          <li>Création de Quality Gates et de Quality Profiles sur Sonar
+            <ul><li>Automatisation des analyses et du contrôle qualité de chaque release</li></ul></li></ul></li>
+      <li>Gestion des incidents et projets selon Scrum (IceScrum), Kanban (Kantree) et ITIL (ServiceNow)</li>
+      <li>Support développement sur certains produits Python</li>
+      <li>Intégration et amélioration d’une stack Elasticsearch
+        <ul><li>Reporting automatisé des logs par serveur via Filebeat</li><li>Mise en place de filtres Logstash personnalisés en Grok</li><li>Rôles et accès personnalisés sur Kibana (spaces) et reporting par équipe</li><li>Configuration de vues, dashboards et recherches personnalisés par pattern</li><li>Politique ILM globale et personnalisée par application</li></ul></li>
+    </ul>
+    <div class="rh">Environnement technique</div>
+    <ul class="env"><li>Linux (RHEL / CentOS, Debian)</li><li>Stack ELK : Filebeat, Kibana, Logstash, Elasticsearch</li><li>Usine logicielle : Jenkins, Archiva, Nexus, Sonar, Git</li><li>VMware, Docker, Kubernetes</li><li>Scripting : Batch, Ansible, Python</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="fr">
+  <h2 class="exph">Expériences</h2>
+  <div class="exp">
+    <div class="co"><span>Inside pour Airbus</span><span class="loc">LIEU (31)</span></div>
+    <div class="dt">2018</div>
+    <div class="role">Administrateur Systèmes</div>
+    <div class="proj">Projet : administration d’une infrastructure VMware entre Toulouse et l’Allemagne, automatisation du déploiement et de la masterisation d’images, équipes internationales, images master hybrides (Office ou CAD)</div>
+    <div class="rh">Administrateur VMware</div>
+    <ul>
+      <li>Administration et exploitation d’infrastructures VMware (vSphere, vCenter) à forte volumétrie</li>
+      <li>Masterisation des images centrales, déploiement de patchs et haute disponibilité (Golden Master)</li>
+      <li>Déploiement des images master pour chaque client et configuration des applications
+        <ul><li>Images master Windows et Linux</li><li>Images pour designers intégrant les outils CAD, avec support associé</li></ul></li>
+      <li>Configuration PowerShell des images parent utilisées par Horizon pour la customisation</li>
+      <li>Configuration de vRealize Orchestrator pour l’automatisation des tâches et des recompositions</li>
+      <li>Supervision et optimisation des performances des plateformes avec vROps</li>
+      <li>Maintenance de la solution et analyse des erreurs et limites sur un parc de 40 ESXi</li>
+      <li>Résolution d’incidents et de demandes clients via Semaphore / Remedy</li>
+      <li>MCO et alerting : configuration des alertes sous Zabbix</li>
+    </ul>
+    <div class="rh">Environnement technique</div>
+    <ul class="env"><li>Windows Server 2008 R2 / 2012 R2</li><li>VMware Horizon 6/7, vCenter, vSphere<ul><li>Images master Windows et Linux</li></ul></li><li>vRealize Orchestrator, vRealize Operations Manager (vROps)</li><li>Windows 7 / 10, PowerShell</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="fr">
+  <h2 class="exph">Expériences</h2>
+  <div class="exp">
+    <div class="co"><span>Freescale / NXP Semiconductors</span><span class="loc">LIEU (31)</span></div>
+    <div class="dt">Novembre 2012 – Janvier 2018</div>
+    <div class="role">Administrateur Systèmes, IT Support</div>
+    <div class="proj">Projet : support IT et infrastructure sur un parc R&amp;D de 80 serveurs, gestion des incidents niveau 2/3</div>
+    <div class="rh">Administrateur Systèmes, IT Support</div>
+    <ul>
+      <li>Optimisation du support et des tâches selon ITIL et Agile, avec ServiceNow
+        <ul><li>Amélioration des performances des processus et automatisation</li><li>Création de bases de connaissances (KB)</li><li>Management d’équipe, suivi des procédures et contact client, incluant Process et Change Management</li></ul></li>
+      <li>Gestion de l’Active Directory du parc
+        <ul><li>Création d’une relation d’approbation entre deux domaines suite à la fusion FSL / NXP</li><li>Déploiement d’un serveur ADFS</li></ul></li>
+      <li>Renouvellement du parc serveurs (2008 R2)
+        <ul><li>Serveur d’impression virtuel, SQL et Uniflow</li><li>Mise en place d’un nouveau serveur de stockage et de la réplication DFS-R</li><li>Deux serveurs SCCM pour la gestion des mises à jour des postes</li></ul></li>
+      <li>MCO des serveurs, supervision et résolution proactive des incidents et des besoins</li>
+      <li>Support niveau 2-3 aux utilisateurs</li>
+      <li>Serveurs VMware vCenter et Hyper-V hébergeant des applications métier de conception</li>
+      <li>Gestion des comptes et des messageries sous Active Directory et Exchange Online</li>
+      <li>Gestion du réseau du site (switchs Cisco)</li>
+      <li>Renouvellement du parc réseau
+        <ul><li>Sauvegarde des configurations, remplacement des switchs, installation des OS et restauration</li><li>Configuration et VLAN</li></ul></li>
+      <li>Gestion de la téléphonie
+        <ul><li>Solution PABX sur Toulouse</li><li>Solution VoIP Orange Business sur Paris et Mougins</li></ul></li>
+      <li>Solution de sauvegarde des données
+        <ul><li>Sauvegarde avec Connected Backup et NetVault Backup</li><li>Gestion des bandes de sauvegarde pour l’archivage externe</li></ul></li>
+      <li>Administration de la sécurité
+        <ul><li>BitLocker, chiffrement et portail MBAM ou AD pour la récupération des clés</li><li>Déploiement de serveurs et de proxys Sophos SafeGuard</li><li>YubiKey pour la double authentification sur les postes sensibles</li></ul></li>
+    </ul>
+    <div class="rh">Environnement technique</div>
+    <ul class="env"><li>Windows Server 2003, 2008 R2, 2012 R2, Windows 7, Windows 10</li><li>VMware vCenter, Hyper-V</li><li>Switchs Cisco Catalyst 3850</li><li>PABX, OmniVista, OmniPCX</li><li>Active Directory, ADFS, RODC, DNS, DHCP</li></ul>
+  </div>
+</section>
+
+<!-- ======================= ENGLISH ======================= -->
+
+<section class="page" data-lang="en">
+  <header class="hdr">
+    <div class="hl">
+      <div class="nm">Adianiz Valla</div>
+      <div>Lausanne</div>
+      <div class="ph">07.75.25.38.93</div>
+    </div>
+    <div class="hr">
+      <div>DevOps / SysAdmin</div>
+      <div>Ingenieur Infrastructure</div>
+      <div class="ph">14 years experience</div>
+    </div>
+  </header>
+
+  <h2 class="sec">Professional Profile</h2>
+  <div class="role-h">Senior Infrastructure &amp; Systems Engineer / DevOps</div>
+  <p class="bp">Over 14 years of experience in critical environments across R&amp;D, semiconductors, aerospace, software production, industry, and banking.</p>
+  <p class="bp">Expert in automation and operational maintenance (MCO – Maintien en Condition Opérationnelle), with a strong focus on virtualization, monitoring, and infrastructure reliability.</p>
+  <p class="bp">Experienced in complex, high-availability environments hosting CAD/EDA and simulation tools, as well as data platforms. Skilled in infrastructure automation, virtualized and cloud environment management, container orchestration, and deployment industrialization.</p>
+  <p class="bp">Experienced in high-availability environments and international teams, with stringent requirements for performance, security, and intellectual property protection.</p>
+
+  <hr class="red">
+
+  <h2 class="sec">KEY SKILLS</h2>
+  <div class="kh">• SYSTEMS, INFRASTRUCTURE &amp; MCO</div>
+  <p class="up">WINDOWS / LINUX SERVER FLEET ADMINISTRATION IN HIGH AVAILABILITY – VMWARE AND HYPER-V VIRTUALIZATION (VCENTER, ESXI, HORIZON) – STORAGE AND BACKUP (SAN/NAS, DFS-R, PRA/DRP) – NETWORKING (TCP/IP, VLAN, CISCO SWITCHES) – MONITORING, ALERTING AND LEVEL 3/4 INCIDENT MANAGEMENT</p>
+  <div class="kh">• DEVOPS &amp; AUTOMATION</div>
+  <p class="up">CI/CD (JENKINS, GITLAB, GIT) – AUTOMATION (ANSIBLE, POWERSHELL, PYTHON) – CONTAINERIZATION AND ORCHESTRATION (DOCKER, KUBERNETES) – INDUSTRIALIZATION OF RELEASE PLANS (MEP) AND APPLICATION DEPLOYMENTS</p>
+  <div class="kh">• R&amp;D, DATA &amp; APPLICATION ENVIRONMENTS</div>
+  <p class="up">CAD / EDA ENVIRONMENTS (CADENCE VIRTUOSO, DESIGNSYNC, AUTODESK INVENTOR / VAULT / ADMS) – DATA PLATFORMS (ALTERYX, SEMARCHY, TALEND) – APPLICATION SERVERS (IIS, XL DEPLOY / XL RELEASE) – DATA FLOW INTEGRATION (ODBC, DATABASES)</p>
+
+  <hr class="pink">
+
+  <h2 class="sec">AREAS OF EXPERTISE</h2>
+  <div class="kh">• SYSTEMS, INFRASTRUCTURE &amp; MCO</div>
+  <p class="up">CRITICAL INFRASTRUCTURE OPERATIONS – OPERATIONAL MAINTENANCE (MCO) – MONITORING AND INCIDENT MANAGEMENT – IMPROVING AVAILABILITY AND PERFORMANCE</p>
+  <div class="kh">R&amp;D, DATA &amp; APPLICATION ENVIRONMENTS</div>
+  <p class="up">CAD / EDA ENVIRONMENT SUPPORT – DATA PLATFORM DEPLOYMENT – DATA FLOW CONFIGURATION (ODBC, DATABASES) – SUPPORT FOR TECHNICAL TEAMS AND PROJECTS</p>
+  <div class="kh">• DEVOPS &amp; AUTOMATION</div>
+  <p class="up">CI/CD PIPELINE SETUP – DEPLOYMENT AND CONFIGURATION AUTOMATION – INDUSTRIALIZATION OF OPERATIONS PROCESSES – SOFTWARE FACTORY</p>
+</section>
+
+<section class="page" data-lang="en">
+  <h2 class="sec line">TECHNICAL SKILLS</h2>
+  <div class="kh mixed">• SYSTEMS, VIRTUALIZATION &amp; INFRASTRUCTURE</div>
+  <p class="bp">Windows Server and Linux administration (RHEL, Debian) – VMware virtualization (vSphere, vCenter, ESXi, Horizon) – Infrastructure services (Active Directory, DNS, DHCP, DFS-R) – Operation of critical high-availability infrastructures</p>
+  <div class="kh mixed">• NETWORKS, STORAGE &amp; BACKUP</div>
+  <p class="bp">Networking (TCP/IP, VLAN, routing) – LAN/WAN and telephony environments (PABX, VoIP) – SAN/NAS and DFS-R storage, migration to centralized architectures – Backup and archiving (NetVault, Connected Backup, Veeam) – PRA/DRP (business continuity / disaster recovery) – Database administration (SQL Server, MySQL, PostgreSQL, MongoDB)</p>
+  <div class="kh mixed">• DEVOPS, AUTOMATION &amp; CLOUD</div>
+  <p class="bp">Automation and configuration management (Ansible, Terraform, PowerShell, Python) – CI/CD (Jenkins, GitLab, Git / Gerrit, Bitbucket, Nexus, Archiva, SonarQube) – Containerization and orchestration (Docker, Kubernetes, Swarm) – Cloud (GCP) – Industrialization of deployments and release plans (MEP)</p>
+  <div class="kh mixed">• MONITORING, MCO &amp; OPERATIONS</div>
+  <p class="bp">Monitoring and observability (Zabbix, Centreon, Nagios, ELK, Splunk, vROps) – Automated alerting and reporting – MCO of production environments – Incident management and N2/N3 support – ITSM tools (ServiceNow, Remedy)</p>
+  <div class="kh mixed">• DATA &amp; APPLICATION ENVIRONMENTS</div>
+  <p class="bp">Deployment and operation of data platforms (Alteryx, Semarchy, Talend, Denodo) – Application servers (IIS) – Database connection configuration (ODBC, databases) – Data flow integration and management</p>
+  <div class="kh mixed">• CAD / R&amp;D ENVIRONMENTS</div>
+  <p class="bp">Administration and support of CAD / EDA and PLM tools (Cadence Virtuoso, DesignSync, Autodesk Inventor / Vault / ADMS, Cameo, 3DEXPERIENCE / ENOVIA) – Vault servers – Secure remote access (OpenText Exceed) – Sensitive environments: performance, security, intellectual property</p>
+  <div class="kh mixed">• COLLABORATION, MESSAGING &amp; ITSM TOOLS</div>
+  <p class="bp">Office 365, SharePoint, OneDrive, G Suite, Exchange, SMTP, Postfix – ITSM tools (ServiceNow, Remedy) – Asset management and deployment (SCCM, WSUS, MDT, MBAM) – Access security (CyberArk, BitLocker, YubiKey)</p>
+  <div class="kh mixed">• SCRIPTING &amp; AUTOMATION</div>
+  <p class="bp">PowerShell, Bash / Shell, Python, Batch, Ansible – Development of operations, archiving and automation scripts</p>
+
+  <h2 class="sec">EDUCATION &amp; TRAINING</h2>
+  <hr class="grey">
+  <div class="edu">Advanced Linux Administration – 2023 (training)</div>
+  <div class="edu">Lead IT Centreon – 2020 (training)</div>
+  <div class="edu">MCITP / MCSA / MCTS Windows Server – 2012 (certifications)</div>
+  <div class="edu">Systems &amp; Networks Administrator – 2012</div>
+  <div class="edu">Higher Technician in IT &amp; Networks – 2010</div>
+</section>
+
+<section class="page" data-lang="en">
+  <h2 class="exph">Experience</h2>
+  <div class="exp">
+    <div class="co"><span>API Consultant at Audemars Piguet</span><span class="loc">LE BRASSUS</span></div>
+    <div class="dt">June 2026 – Present</div>
+    <div class="role">Systems Engineer</div>
+    <div class="proj">Project: Supporting R&amp;D in IT infrastructure decisions and driving the long-term evolution of the CAD architecture</div>
+    <div class="rh">Achievements</div>
+    <ul>
+      <li>Develop a structured business case for migrating CAD workstations to VMware virtualization
+        <ul><li>Define requirements before Server purchase</li><li>Analyze the drivers for change and the expected benefits</li></ul></li>
+      <li>Redesign the CAD infrastructure (Autodesk Inventor, Vault, ADMS) and its database
+        <ul><li>Improve performance across the Inventor → Vault → ADMS workflow</li></ul></li>
+      <li>Deploy remote, automated simulation solutions</li>
+      <li>Develop a PowerShell-based archiving and restoration interface using Robocopy to meet business requirements
+        <ul><li>Create a script that runs without administrator privileges and supports both archiving and restoration</li><li>Ensure the solution is secure, intuitive, and performant from launch</li></ul></li>
+      <li>Migrate storage servers from a legacy configuration to an optimized, virtualized and centralized architecture</li>
+      <li>Review the MongoDB backup architecture as part of a DRP for a critical application
+        <ul><li>Automate mongodump backups in Kubernetes containers</li></ul></li>
+    </ul>
+    <div class="rh">Technical environment</div>
+    <ul class="env"><li>Windows and Linux servers</li><li>SQL Server, MongoDB</li><li>Autodesk Inventor, Vault, ADMS</li><li>ANSYS ARC / RSM</li><li>PowerShell</li><li>VMware (vCenter, Horizon)</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="en">
+  <h2 class="exph">Experience</h2>
+  <div class="exp">
+    <div class="co"><span>Freelance for BPCE</span><span class="loc">TOULOUSE</span></div>
+    <div class="dt">June 2025 – June 2026</div>
+    <div class="role">Production &amp; Data Engineer</div>
+    <div class="proj">Project: Critical banking environment – administration and operation of application, data, and production platforms</div>
+    <div class="rh">Achievements</div>
+    <ul>
+      <li>Administration and operation of production environments (Windows / Linux servers, IIS web applications)
+        <ul><li>Release management, cross-team coordination, and deployments</li></ul></li>
+      <li>Technical support and operational maintenance (MCO) of application and data platforms</li>
+      <li>Management and automation of application deployments with XL Deploy / XL Release
+        <ul><li>Create deployment templates and releases in XL Release</li><li>Manage dictionaries and environments in XL Deploy using version control</li></ul></li>
+      <li>Support developers with configuration and deployments</li>
+      <li>Database and backup management
+        <ul><li>SQL, MySQL</li></ul></li>
+      <li>Migrate servers and production applications</li>
+      <li>Administration and support of data tools (Alteryx, Semarchy)</li>
+      <li>Preparation and management of application and tool migrations</li>
+      <li>Continuous improvement of operations and environment reliability</li>
+      <li>Configure and monitor systems with Zabbix</li>
+      <li>Scripting and automation of operational tasks</li>
+      <li>Secure management of service accounts with CyberArk
+        <ul><li>Automation of security and account policies via CPM</li><li>Auto-provisioning via templates and template lifecycle management</li><li>Lifecycle management and vault management</li></ul></li>
+    </ul>
+    <div class="rh">Technical environment</div>
+    <ul class="env"><li>Windows and Linux servers</li><li>IIS, XL Release, XL Deploy</li><li>Zabbix</li><li>Alteryx, Semarchy, GCP</li><li>SQL, Denodo, PostgreSQL, MySQL</li><li>VTOM, Control-M</li><li>CyberArk</li><li>Scripting: Batch, Python, PowerShell</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="en">
+  <h2 class="exph">Experience</h2>
+  <div class="exp">
+    <div class="co"><span>NXP Semiconductors</span><span class="loc">LOCATION: TOULOUSE</span></div>
+    <div class="dt">August 2024 – May 2025</div>
+    <div class="role">CAD Support Engineer</div>
+    <div class="proj">Project: Semiconductor R&amp;D environment – supporting design teams in an international setting with stringent requirements for performance, security, and intellectual property protection</div>
+    <div class="rh">Achievements</div>
+    <ul>
+      <li>Technical support and administration of CAD / EDA environments for hardware and software design teams</li>
+      <li>Configuration, administration and optimization of design tools (DesignSync, Cadence Virtuoso, Cameo, CollabNet)</li>
+      <li>Migration and securing of critical assets (hardware and software intellectual property)
+        <ul><li>Creation of Vault servers with DesignSync</li><li>Configure secure OpenText Exceed workspaces</li></ul></li>
+      <li>Manage release planning, testing, and application deployment</li>
+      <li>Automate data migrations and processes using scripts (Ansible, Python, Batch)</li>
+      <li>Operation of virtualized environments and remote access (OpenText Exceed)</li>
+      <li>Continuous improvement of operability and industrialization of environments (DevOps approach)</li>
+      <li>Setup of monitoring and analysis solutions (Splunk)</li>
+      <li>Administration of local technical servers and support for the associated infrastructure</li>
+      <li>Structuring and bringing technical projects back under control (organization, reliability, DevOps practices)</li>
+      <li>Technical coordination with international teams</li>
+    </ul>
+    <div class="rh">Technical environment</div>
+    <ul class="env"><li>Linux, Windows</li><li>OpenText Exceed (virtualization)</li><li>Cadence Virtuoso, DesignSync, Cameo</li><li>Splunk</li><li>Git / Gerrit, Bitbucket, CollabNet</li><li>Scripting: Batch, Python, PowerShell</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="en">
+  <h2 class="exph">Experience</h2>
+  <div class="exp">
+    <div class="co"><span>Softeam for INRAE</span><span class="loc">LOCATION: REMOTE</span></div>
+    <div class="dt">January 2019 – July 2024</div>
+    <div class="role">DevOps Engineer</div>
+    <div class="proj">Project: Providing DevOps support to Java, Angular, JavaScript, and Python development teams as an embedded consultant</div>
+    <div class="rh">Achievements</div>
+    <ul>
+      <li>Provide operational maintenance (MCO) for client products and continuously improve their operation
+        <ul><li>Automation of MCO, reporting and alerting</li><li>Deploy custom Centreon monitoring probes through the API</li></ul></li>
+      <li>Execute release plans and produce functional and technical documentation
+        <ul><li>Automation of release plans with Jenkins and GitLab</li></ul></li>
+      <li>Linux server administration and application deployment
+        <ul><li>Setup of an Ansible server to deploy tools, with version control
+          <ul><li>Set up Ansible Galaxy to standardize and reuse deployments</li></ul></li></ul></li>
+      <li>Support for developers on Jenkins, Archiva, Sonar, TestLink and Elastic
+        <ul><li>Jenkins pipelines per team</li><li>Git – Jenkins integration, webhooks and CI/CD setup</li>
+          <li>Create Quality Gates and Quality Profiles in SonarQube
+            <ul><li>Automation of analyses and code quality control for each release</li></ul></li></ul></li>
+      <li>Management of incidents and projects using Scrum (IceScrum), Kanban (Kantree) and ITIL (ServiceNow)</li>
+      <li>Development support on certain Python products</li>
+      <li>Integration and improvement of an Elasticsearch stack
+        <ul><li>Automated log reporting per server via Filebeat</li><li>Setup of custom Logstash filters in Grok</li><li>Custom roles and access in Kibana (spaces) and team-based reporting</li><li>Configuration of custom views, dashboards and saved searches per pattern</li><li>Global and application-specific ILM policies</li></ul></li>
+    </ul>
+    <div class="rh">Technical environment</div>
+    <ul class="env"><li>Linux (RHEL / CentOS, Debian)</li><li>ELK stack: Filebeat, Kibana, Logstash, Elasticsearch</li><li>Software factory: Jenkins, Archiva, Nexus, Sonar, Git</li><li>VMware, Docker, Kubernetes</li><li>Scripting: Batch, Ansible, Python</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="en">
+  <h2 class="exph">Experience</h2>
+  <div class="exp">
+    <div class="co"><span>Inside for Airbus</span><span class="loc">LOCATION: (31)</span></div>
+    <div class="dt">2018</div>
+    <div class="role">Systems Administrator</div>
+    <div class="proj">Project: Administering a VMware infrastructure across Toulouse and Germany, automating image deployment and customization, and supporting international teams with hybrid master images (Office or CAD)</div>
+    <div class="rh">VMware Administrator</div>
+    <ul>
+      <li>Administration and operation of VMware infrastructures (vSphere, vCenter) with high data volumes</li>
+      <li>Manage central master images, patch deployment, and high availability (golden images)</li>
+      <li>Deployment of master images for each client and application configuration
+        <ul><li>Windows and Linux master images</li><li>Images for designers including CAD tools, with associated support</li></ul></li>
+      <li>PowerShell configuration of parent images used by Horizon for customization</li>
+      <li>Configuration of vRealize Orchestrator for automated tasks and recompositions</li>
+      <li>Monitoring and performance optimization of platforms with vROps</li>
+      <li>Maintenance of the solution and analysis of errors and limits across a fleet of 40 ESXi hosts</li>
+      <li>Incident and client request resolution via Semaphore / Remedy</li>
+      <li>MCO and alerting: alert configuration in Zabbix</li>
+    </ul>
+    <div class="rh">Technical environment</div>
+    <ul class="env"><li>Windows Server 2008 R2 / 2012 R2</li><li>VMware Horizon 6/7, vCenter, vSphere<ul><li>Windows and Linux master images</li></ul></li><li>vRealize Orchestrator, vRealize Operations Manager (vROps)</li><li>Windows 7 / 10, PowerShell</li></ul>
+  </div>
+</section>
+
+<section class="page" data-lang="en">
+  <h2 class="exph">Experience</h2>
+  <div class="exp">
+    <div class="co"><span>Freescale / NXP Semiconductors</span><span class="loc">LOCATION: (31)</span></div>
+    <div class="dt">November 2012 – January 2018</div>
+    <div class="role">Systems Administrator, IT Support</div>
+    <div class="proj">Project: IT support and infrastructure for an 80-server R&amp;D environment, including Level 2/3 incident management</div>
+    <div class="rh">Systems Administrator, IT Support</div>
+    <ul>
+      <li>Support and task optimization following ITIL and Agile, with ServiceNow
+        <ul><li>Process performance improvement and automation</li><li>Creation of knowledge base articles (KB)</li><li>Team management, procedure follow-up and client contact, including Process and Change Management</li></ul></li>
+      <li>Management of the Active Directory fleet
+        <ul><li>Creation of a trust relationship between two domains following the FSL / NXP merger</li><li>Deployment of an ADFS server</li></ul></li>
+      <li>Server fleet renewal (2008 R2)
+        <ul><li>Virtual print server, SQL and Uniflow</li><li>Setup of a new storage server and DFS-R replication</li><li>Two SCCM servers for workstation update management</li></ul></li>
+      <li>Operational maintenance of servers, monitoring and proactive resolution of incidents and needs</li>
+      <li>Provide Level 2/3 user support</li>
+      <li>VMware vCenter and Hyper-V servers hosting design business applications</li>
+      <li>Account and mailbox management in Active Directory and Exchange Online</li>
+      <li>Site network management (Cisco switches)</li>
+      <li>Network fleet renewal
+        <ul><li>Configuration backups, switch replacement, OS installation and restoration</li><li>Configuration and VLANs</li></ul></li>
+      <li>Telephony management
+        <ul><li>PABX solution in Toulouse</li><li>Orange Business VoIP solution in Paris and Mougins</li></ul></li>
+      <li>Data backup solution
+        <ul><li>Backup with Connected Backup and NetVault Backup</li><li>Management of backup tapes for external archiving</li></ul></li>
+      <li>Security administration
+        <ul><li>BitLocker, encryption and MBAM or AD portal for key recovery</li><li>Deployment of Sophos SafeGuard servers and proxies</li><li>YubiKey for two-factor authentication on sensitive computers</li></ul></li>
+    </ul>
+    <div class="rh">Technical environment</div>
+    <ul class="env"><li>Windows Server 2003, 2008 R2, 2012 R2, Windows 7, Windows 10</li><li>VMware vCenter, Hyper-V</li><li>Cisco Catalyst 3850 switches</li><li>PABX, OmniVista, OmniPCX</li><li>Active Directory, ADFS, RODC, DNS, DHCP</li></ul>
+  </div>
+</section>
+
+<script>
+  function setLang(l) {
+    document.body.dataset.lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll('.switch button').forEach(function (b) {
+      b.classList.toggle('on', b.dataset.l === l);
+    });
+  }
+</script>
+</body>
+</html>
